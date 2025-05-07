@@ -1,14 +1,17 @@
 package com.example.teleweather;
 
 public class LocationResult {
-    private String id; // id de la locación
-    private String name; // nombre de la locación
-    private String region; // región de la locación
-    private String country; // país de la locación
-    private Double lat; // latitud
-    private Double lon; // longitud
-    private String url; // url de la locación
+    private String id;
+    private String name;
+    private String region;
+    private String country;
+    private Double lat;
+    private Double lon;
 
+    // Constructores
+    public LocationResult() {}
+
+    // Getters y setters
     public String getId() {
         return id;
     }
@@ -55,13 +58,5 @@ public class LocationResult {
 
     public void setLon(Double lon) {
         this.lon = lon;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

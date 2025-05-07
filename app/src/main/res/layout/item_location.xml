@@ -16,7 +16,7 @@
         android:background="#FFFFFF">
 
         <TextView
-            android:id="@+id/textViewLocationName"
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
@@ -24,21 +24,21 @@
             android:textColor="#0277BD" />
 
         <TextView
-            android:id="@+id/textViewLocationregion"
+            android:id="@+id/tvRegion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textColor="#455A64" />
 
         <TextView
-            android:id="@+id/textViewLocationCountry"
+            android:id="@+id/tvCountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textColor="#455A64" />
 
         <TextView
-            android:id="@+id/textViewLocationId"
+            android:id="@+id/tvLocationId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"

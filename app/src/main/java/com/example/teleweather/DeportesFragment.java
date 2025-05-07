@@ -33,6 +33,7 @@ public class DeportesFragment extends Fragment {
     private RecyclerView recyclerViewPronosticos;
     private DeporteAdapter adapter;
     private ProgressBar progressBar;
+    private TextView tvEmptyState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +45,8 @@ public class DeportesFragment extends Fragment {
         buttonSearch = view.findViewById(R.id.buttonSearch);
         recyclerViewPronosticos = view.findViewById(R.id.recyclerViewPronosticos);
         progressBar = view.findViewById(R.id.progressBar);
+        tvEmptyState = view.findViewById(R.id.tvEmptyState);
+
 
         // Configurar RecyclerView
         recyclerViewPronosticos.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -62,6 +65,7 @@ public class DeportesFragment extends Fragment {
 
         return view;
     }
+
 
     private void searchSports(String location) {
         showLoading(true);

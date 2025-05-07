@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_app"
+    android:background="#FFFFFF">
+    <item
+        android:id="@+id/action_location"
+        android:title="Location"
+        android:icon="@drawable/ic_location"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/action_pronostico"
+        android:title="Pronostico"
+        android:icon="@drawable/ic_pronostico"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/action_deportes"
+        android:title="Deportes"
+        android:icon="@drawable/ic_deportes"
+        app:showAsAction="always"
+        />
+</menu>

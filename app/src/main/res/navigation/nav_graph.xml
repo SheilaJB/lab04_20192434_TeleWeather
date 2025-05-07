@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_location">
+    <!-- Añadir los fragments-->
+
+    <fragment
+        android:id="@+id/nav_location"
+        android:name="com.example.teleweather.LocationFragment"
+        android:label="Location"
+        tools:layout="@layout/fragment_location"
+    />
+    <fragment
+        android:id="@+id/nav_pronosticos"
+        android:name="com.example.teleweather.PronosticosFragment"
+        android:label="Pronosticos"
+        tools:layout="@layout/fragment_pronosticos"
+        />
+    <fragment
+        android:id="@+id/nav_deportes"
+        android:name="com.example.teleweather.DeportesFragment"
+        android:label="Deportes"
+        tools:layout="@layout/fragment_deportes"
+        />
+
+    <!--
+    <fragment
+        android:id="@+id/nav_location"
+        android:name="com.example.teleweather.LocationFragment"
+        android:label="Location"
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/action_location_to_pronosticos"
+            app:destination="@id/nav_pronosticos" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pronosticos"
+        android:name="com.example.teleweather.PronosticosFragment"
+        android:label="Pronósticos"
+        tools:layout="@layout/fragment_pronosticos">
+    </fragment>
+    <fragment
+        android:id="@+id/nav_deportes"
+        android:name="com.example.teleweather.DeportesFragment"
+        android:label="Deportes"
+        tools:layout="@layout/fragment_deportes" /> -->
+</navigation>

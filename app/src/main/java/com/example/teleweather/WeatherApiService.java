@@ -19,6 +19,11 @@ public interface WeatherApiService {
             @Query("q") String locationId,
             @Query("days") int days
     );
+    @GET("/v1/sports.json")
+    Call<DeporteResponse> getSports(
+            @Query("key") String apiKey,
+            @Query("q") String location
+    );
 
 
 }

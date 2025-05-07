@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#E0F7FA"
-    tools:context=".PronosticosFragment">
+    tools:context=".DeportesFragment">
 
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pronósticos del Deporte"
+        android:text="Partidos de Fútbol"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="#0277BD"
@@ -31,11 +32,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="ID Locación"
+            android:hint="Ingrese nombre de la ciudad o país"
             android:padding="12dp"
             android:background="@android:drawable/editbox_background"
             android:inputType="text" />
-
 
         <Button
             android:id="@+id/buttonSearch"
@@ -58,9 +58,26 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEmptyState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sin resultados. Intente buscar una ubicación."
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
 </LinearLayout>

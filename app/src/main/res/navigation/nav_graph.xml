@@ -24,26 +24,4 @@
         android:label="Deportes"
         tools:layout="@layout/fragment_deportes"
         />
-
-    <!--
-    <fragment
-        android:id="@+id/nav_location"
-        android:name="com.example.teleweather.LocationFragment"
-        android:label="Location"
-        tools:layout="@layout/fragment_location">
-        <action
-            android:id="@+id/action_location_to_pronosticos"
-            app:destination="@id/nav_pronosticos" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_pronosticos"
-        android:name="com.example.teleweather.PronosticosFragment"
-        android:label="Pronósticos"
-        tools:layout="@layout/fragment_pronosticos">
-    </fragment>
-    <fragment
-        android:id="@+id/nav_deportes"
-        android:name="com.example.teleweather.DeportesFragment"
-        android:label="Deportes"
-        tools:layout="@layout/fragment_deportes" /> -->
 </navigation>

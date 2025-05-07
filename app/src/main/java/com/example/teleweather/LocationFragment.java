@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -152,13 +153,9 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     public void onLocationClick(LocationResult location) {
         // Aquí manejas el clic en una ubicación
         Toast.makeText(requireContext(), "Ubicación seleccionada: " + location.getName(), Toast.LENGTH_SHORT).show();
-
-        // Si deseas, puedes navegar a otro fragmento con información más detallada
-        // usando el ID de la ubicación o cualquier otra información relevante
-
-        // Ejemplo de navegación usando Navigation Component:
-        // Bundle args = new Bundle();
-        // args.putString("locationId", location.getId());
-        // Navigation.findNavController(requireView()).navigate(R.id.action_locationFragment_to_detailFragment, args);
+        Bundle args = new Bundle();
+        args.putString("locationId", location.getId());
+        args.putString("locationName", location.getName());
+        Navigation.findNavController(requireView()).navigate(R.id.action_locationFragment_to_pronosticosFragment, args);
     }
 }

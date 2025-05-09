@@ -1,12 +1,17 @@
 package com.example.teleweather;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PronosticosFragment extends Fragment {
+public class PronosticosFragment extends Fragment implements SensorEventListener {
 
     private EditText editTextLocationId;
     private EditText editTextDays;
@@ -36,12 +41,19 @@ public class PronosticosFragment extends Fragment {
     private RecyclerView recyclerViewPronosticos;
     private ProgressBar progressBar;
     private TextView textViewTitle;
-
     private PronosticosAdapter adapter;
     private List<ForecastResponse.ForecastDay> forecastDays = new ArrayList<>();
     private String locationName = "";
     private String locationId = "";
 
+    // Variables para detección de sacudidas
+    private static final float ACCELERATION_THRESHOLD = 20.0f; // 20 m/s²
+    private long lastShakeTime = 0;
+    private static final long SHAKE_COOLDOWN = 1000;
+
+    // Sensor Manager
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,6 +127,83 @@ public class PronosticosFragment extends Fragment {
             // Buscar pronósticos
             getForecast(id, days);
         });
+
+        // Inicializar el sensor del acelerómetro
+        sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
+    }
+    /*
+    * Promt: Detectar sacudidas del dispositivo para limpiar los pronósticos*/
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            // Obtener valores del acelerómetro (x, y, z)
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+
+            // Calcular la aceleración total usando la raíz cuadrada de la suma de los cuadrados
+            float acceleration = (float) Math.sqrt(x*x + y*y + z*z) - SensorManager.GRAVITY_EARTH;
+
+            // Si la aceleración es mayor que el umbral
+            if (acceleration > ACCELERATION_THRESHOLD) {
+                long currentTime = System.currentTimeMillis();
+                // Verificar el período de enfriamiento para evitar activaciones múltiples
+                if (currentTime - lastShakeTime > SHAKE_COOLDOWN) {
+                    lastShakeTime = currentTime;
+                    // Mostrar diálogo de confirmación
+                    showClearForecastsDialog();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // No se necesita implementación
+    }
+
+    private void showClearForecastsDialog() {
+        // Verificar que el fragmento esté adjunto para evitar excepciones
+        if (!isAdded()) return;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Confirmar acción");
+        builder.setMessage("¿Desea eliminar los pronósticos obtenidos?");
+        builder.setPositiveButton("Sí", (dialog, which) -> {
+            // Limpiar los pronósticos
+            if (adapter != null) {
+                forecastDays.clear();
+                adapter.updateData(forecastDays, locationName, locationId);
+                textViewTitle.setText("Pronósticos");
+                Toast.makeText(requireContext(), "Pronósticos eliminados", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Registrar el sensor cuando el fragmento está visible
+        if (sensorManager != null && accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Desregistrar el sensor cuando el fragmento no está visible para ahorrar batería
+        if (sensorManager != null) {
+            sensorManager.unregisterListener(this);
+        }
     }
 
     private void getForecast(String id, int days) {
